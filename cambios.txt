@@ -1,0 +1,52 @@
+- agregar dependencia: python-dotenv.
+- crear archivo .env con SECRET_KEY que ya estaba en el proyecto.
+- cargar variables de entorno en settings.py.
+- cargar favicon en plantilla base: 'static/img/favicon.png'.
+- agregar configuraciones en settings.py al final del archivo.
+
+
+
+- agregar opciones "Iniciar Sesión" y "Cerrar Sesión" al menú.
+
+
+- agregar opción "Usuarios" en el menú.
+- incluir al urls.py general las urls de la app usuarios.
+- agregar archivo models.py en 'apps.usuarios.models'.  #-- Punto CLAVE para la personalización del modelo User de Django. OJO! hacer este cambio antes de crear la primera migración (makemigrations).
+- agregar archivo admin.py con la config. del nuevo modelo User.
+- agregar los archivos: user_views_generic.py y user_views.py en la carpeta views.
+- agregar las plantillas en 'apps.usuarios.templates.usuarios'.
+- agregar archivo: grp_perm.js en 'static/js'.
+
+
+
+
+<!-- Block Title  ------------------------------------------------------------->
+{% block title %} {% endblock title %}
+
+<!-- Block Header ------------------------------------------------------------->
+{% block header %} {% endblock header %}
+
+<!-- Block Main - ------------------------------------------------------------->
+{% block main %}
+	<div class="wrapper">
+		
+		{% block sidebar %}
+			{% include 'sidebar.html' %}
+		{% endblock sidebar %}
+		
+		{% block maincomponent %}
+			<div class="main">
+			
+			{% block buttonsidebartoggle %}
+				{% include 'buttonsidebartoggle.html' %}
+			{% endblock buttonsidebartoggle %}
+			
+			{% block principalcomponent %}
+			
+			{% endblock principalcomponent %}
+			
+			</div>
+		{% endblock maincomponent %}
+	
+	</div>
+{% endblock main %}

@@ -1,0 +1,148 @@
+1) Crear las aplicaciones
+- maestros
+- usuarios
+- facturacion
+
+
+2) En cada una de las carpetas respectivas, eliminar los archivos:
+- models.py
+- views.py
+
+3) En cada una de las carpetas respectivas, crear el archivo:
+- urls.py
+
+4) En cada una de las carpetas respectivas, crear las carpetas:
+- models
+- views
+- forms
+- templates y dentro de esta otra carpeta con el mismo nombre de la app que la contiene. (para el espaciado de nombres).
+
+5) En la carpeta: \SIG_PROJECTS\SIGCOERP\apps\maestros\models
+copiar los archivos: 
+- models_base_gen.py
+- models_base.py
+
+adicionalmente, en esa misma carpeta, cree el archivo
+- __init__.py con el siguiente contenido:
+
+from apps.maestros.models.models_base_gen import ModeloBaseGenerico
+from apps.maestros.models.models_base import *
+
+Esto es importante para la detección de los modelos en la carpeta models
+para que la instrucción makemigrations detecte los modelos en la carpeta modelos
+
+6) Ejecutar las instrucciones makemigrations y migrate
+
+7) Crear y configurar la carpeta static
+-Creación de la carpeta static
+En la raiz del proyecto, creamos la carpeta static y dentro de ella,
+las carpetas: css, img y js
+- Configuración de la carpeta static en settings.py
+En el archivo: \SIG_PROJECTS\SIGCOERP\SIGCOERP\settings.py
+
+Al principio del archivo inlcuir:
+from dotenv import load_dotenv
+from os import path, getenv
+
+Luego cambiar la instrucción: STATIC_URL = 'static/'
+
+por:
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (path.join(BASE_DIR, 'static'),)
+
+8) Copiar los archivos estaticos base para el SideBar del Proyecto
+- En la carpeta SIG_PROJECTS\static\css
+copiar el archivo: style.css
+
+- En la carpeta SIG_PROJECTS\static\img
+copiar el archivo: background-image.jpg
+
+- En la carpeta SIG_PROJECTS\static\js
+copiar los archivos: 
+
+9) Crear la carpeta templates de todo el proyecto
+En la raiz del proyecto, creamos la carpeta template
+
+
+10) Configurar en settings.py las carpetas template del proyecto y de las aplicaciones
+
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates')  # Carpeta templates a nivel del proyecto
+        ],
+        'APP_DIRS': True,   # <== Esta configuración le indica al framework que debe buscar plantillas dentro de las apps.
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+
+11) Creación de la página de inicio del Proyecto
+- En la carpeta templates del proyecto: \SIG_PROJECTS\templates
+copiar los archivos: 
+base.html
+sidebar.html
+buttonsidebartoggle.html
+inicio.html
+
+12) Creación de la vista que invoca a la página de inicio del proyecto - inicio.html
+- En la carpeta \SIG_PROJECTS\SIGCOERP\SIGCOERP\ crear el archivo views.py y colocar el 
+siguiente contenido:
+
+from django.shortcuts import render
+from django.views import View
+from django.utils import timezone
+
+class InicioView(View):
+    def get(self, request, *args, **kwargs):
+        fecha_actual = timezone.now()
+        return render(request, 'inicio.html', {'fecha': fecha_actual})
+
+13) Configurar la ruta del proyecto para la plantilla inicio.html
+- En la carpeta \SIG_PROJECTS\SIGCOERP\SIGCOERP\
+Modificar el código, de tal modo que aparezca así:
+
+from django.contrib import admin
+from django.urls import path
+from .views import InicioView  # Ajusta la importación según la ubicación exacta
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', InicioView.as_view(), name='inicio'),
+]
+
+
+14) Iniciar el Proyecto: python manage.py runserver
+
+15) Agregar los en la carpeta de modelos de maestros 
+- En la carpeta \maestros\models agregar los siguientes archivos:
+models_agenda.py
+models_persona.py
+models_producto.py
+
+- En el archivo __init__.py de la carpeta \apps\maestros\models agregar las siguientes 
+from apps.maestros.models.models_agenda import *
+from apps.maestros.models.models_persona import *
+from apps.maestros.models.models_producto import *
+
+Ejecutar makemigrations y migrate
+
+16) Copiar el archivo admin.py correspondiente en la carpeta \apps\maestros\admin.py
+
+17) Crear el Usuario superusuario en Django
+python manage.py createsuperuser
+
+usuario: sigcoerp
+correo: ramosric1410@gmail.com
+constraseña; wasama2024
+
+
+ 

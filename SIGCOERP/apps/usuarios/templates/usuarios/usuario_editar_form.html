@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+<!-- Block Title  ------------------------------------------------------------->
+{% block title %}
+	Usuarios
+{% endblock %}
+
+<!-- Block Header ------------------------------------------------------------->
+{% block header %}
+{% endblock %}
+
+<!-- Block Main - ------------------------------------------------------------->
+{% block main %}
+	<div class="wrapper">
+		
+		{% block sidebar %}
+			{% include 'sidebar.html' %}
+		{% endblock sidebar %}
+		
+		{% block maincomponent %}
+			<div class="main">
+			
+			{% block buttonsidebartoggle %}
+				{% include 'buttonsidebartoggle.html' %}
+			{% endblock buttonsidebartoggle %}
+			
+			{% block principalcomponent %}
+				<div class="container">
+			
+					<div class="row mt-5">
+						<!-- <div class="col col-md-8 col-lg-6 offset-md-2 offset-lg-3"> -->
+						<div class="col">
+							<div class="card login-form bg-light">
+								<div class="card-body">
+									<h3 class="card-title text-center">Editar Usuario</h3>
+									<div class="card-text">
+										{% if form.errors %}
+											<div class="alert alert-danger alert-dismissible fade show">{{ form.errors }}</div>
+										{% endif %}
+										<form method="post">
+											{% csrf_token %}
+											
+											<!-- Datos del Usuario -->
+											<div class="bg-primary bg-opacity-75 rounded-2">
+												<h6 class="py-2 px-1 text-white">Datos del Usuario</h6>
+											</div>
+											<div class="form-group">
+												<label for="usuario">Nombre de Usuario</label>
+												<input type="text" class="form-control" id="usuario" name="username" value="{{ form.username.value | default:'' }}" autocomplete="off">
+												<div class="form-text">
+													<ul class="mb-0">
+														<li>Campo requerido.</li>
+														<li>150 carácteres como máximo. Únicamente letras, dígitos y @/./+/-/_</li>
+													</ul>
+												</div>
+											</div>
+											<div class="form-group mt-2">
+												<label for="email">Correo electrónico</label>
+												<input type="email" class="form-control" id="email" name="email" value="{{ form.email.value | default:'' }}" autocomplete="off">
+												<div class="form-text">
+													<ul class="mb-0">
+														<li>Campo requerido.</li>
+														<li>Debe ser un correo válido.</li>
+													</ul>
+												</div>
+											</div>
+											
+											<div class="row">
+												<div class="col-lg-6 mt-2">
+													<!-- Información Personal -->
+													<div class="bg-primary opacity-75 rounded-2">
+														<h6 class="py-2 px-1 text-white">Información Personal</h6>
+													</div>
+													<div class="form-group">
+														<label for="nombre">Nombre</label>
+														<input type="text" class="form-control" id="nombre" name="first_name" value="{{ form.first_name.value | default:'' }}" autocomplete="off">
+													</div>
+													<div class="form-group mt-2">
+														<label for="apellido">Apellido</label>
+														<input type="text" class="form-control" id="apellido" name="last_name" value="{{ form.last_name.value | default:'' }}" autocomplete="off">
+													</div>
+												</div>
+												<div class="col-lg-6 mt-2">
+													<!-- Datos Adicionales -->
+													<div class="bg-primary opacity-75 rounded-2">
+														<h6 class="py-2 px-1 text-white">Datos Adicionales</h6>
+													</div>
+													<div class="form-group">
+														<label for="correo-alt">Correo Alternativo</label>
+														<input type="text" class="form-control" id="correo-alt" name="email_alt" value="{{ form.email_alt.value | default:'' }}" autocomplete="off">
+													</div>
+													<div class="form-group mt-2">
+														<label for="telefono">Teléfono</label>
+														<input type="text" class="form-control" id="telefono" name="telefono" value="{{ form.telefono.value | default:'' }}" autocomplete="off">
+													</div>
+												</div>
+											</div>
+											
+											<!-- Permisos -->
+											<div class="bg-primary bg-opacity-75 rounded-2 mt-3">
+												<h6 class="py-2 px-1 text-white">Permisos</h6>
+											</div>
+											
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="activo" name="is_active" {% if form.is_active.value %}checked{% endif %}>
+												<label class="form-check-label" for="activo">
+													Activo
+												</label>
+											</div>
+											
+											<!-- Permisos por Grupos -->
+											
+											<div class="card mt-3">
+												<div class="card-header text-center bg-primary bg-opacity-10">
+													Permisos por Grupo
+												</div>
+												<div class="card-body">
+													<div class="row">
+														<div class="col-md-5 mt-1">
+															<label for="grupos-disponibles" class="form-label">Grupos Disponibles</label>
+														</div>
+														
+														<div class="col-md-1 mt-1"></div>
+														
+														<div class="col-md-5 mt-1">
+															<label for="grupos-asignados" class="form-label">Grupos Asignados</label>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-5">
+															<select class="form-select" multiple name="grupos-disponibles" id="grupos-disponibles">
+																{% for grupo in grupos_disponibles %}
+																	<option value="{{ grupo.id }}">{{ grupo.name }}</option>
+																{% endfor %}
+															</select>
+														</div>
+														
+														<div class="col-md-1 botones-permisos">
+															
+															<a id="grp-asignar-todos"><i class='bx bxs-chevrons-right'></i></a>
+															<a id="grp-asignar-selec"><i class='bx bxs-chevron-right'></i></a>
+															<a id="grp-quitar-selec"><i class='bx bxs-chevron-left'></i></a>
+															<a id="grp-quitar-todos"><i class='bx bxs-chevrons-left'></i></a>
+															
+														</div>
+														
+														<div class="col-md-5">
+															<select class="form-select" multiple name="grupos-asignados" id="grupos-asignados">
+																{% for grupo in grupos_asignados %}
+																	<option value="{{ grupo.id }}">{{ grupo.name }}</option>
+																{% endfor %}
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<!-- Permisos de Usuarios -->
+											<div class="card">
+												<div class="card-header text-center bg-primary bg-opacity-10">
+													Permisos de Usuarios
+												</div>
+												<div class="card-body">
+													<div class="row">
+														<div class="col-md-5 mt-1">
+															<label for="permisos-disponibles" class="form-label">Permisos Disponibles</label>
+														</div>
+														
+														<div class="col-md-1 mt-1"></div>
+														
+														<div class="col-md-5 mt-1">
+															<label for="permisos-asignados" class="form-label">Permisos Asignados</label>
+														</div>
+													</div>
+													<div class="row">
+														<div class="col-md-5">
+															<select class="form-select" multiple name="permisos-disponibles" id="permisos-disponibles">
+																{% for permiso in permisos_disponibles %}
+																	<option value="{{ permiso.id }}">{{ permiso.name }}</option>
+																{% endfor %}
+															</select>
+														</div>
+														
+														<div class="col-md-1 botones-permisos">
+															
+															<a id="perm-asignar-todos"><i class='bx bxs-chevrons-right'></i></a>
+															<a id="perm-asignar-selec"><i class='bx bxs-chevron-right'></i></a>
+															<a id="perm-quitar-selec"><i class='bx bxs-chevron-left'></i></a>
+															<a id="perm-quitar-todos"><i class='bx bxs-chevrons-left'></i></a>
+															
+														</div>
+														
+														<div class="col-md-5">
+															<select class="form-select" multiple name="permisos-asignados" id="permisos-asignados">
+																{% for permiso in permisos_asignados %}
+																	<option value="{{ permiso.id }}">{{ permiso.name }}</option>
+																{% endfor %}
+															</select>
+														</div>
+													</div>
+												</div>
+											</div>
+											
+											<!-- Botones -->
+											<button type="submit" class="btn btn-primary btn-block mt-2">Guardar</button>
+											<a href="{% url 'usuario_listar' %}" class="btn btn-secondary mt-2">Cancelar</a>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			{% endblock principalcomponent %}
+			
+			</div>
+		{% endblock maincomponent %}
+	
+	</div>
+{% endblock main %}
+
+<!-- Block Fotter ------------------------------------------------------------->
+{% block footer %}
+{% endblock footer %}
+
+{% block JavaScript %}
+	{% load static %}
+	<script src="{% static 'js/grp_perm.js' %}"></script>
+	
+	
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			// Obtener referencias a los selectores.
+			let gruposDisponibles = document.getElementById('grupos-disponibles');
+			let gruposAsignados = document.getElementById('grupos-asignados');
+			
+			let permisosDisponibles = document.getElementById('permisos-disponibles');
+			let permisosAsignados = document.getElementById('permisos-asignados');
+			
+			// Asignar eventos a los elementos.
+			// Grupos:
+			document.getElementById("grp-asignar-selec").addEventListener("click", function (e) {
+				e.preventDefault();
+				moverElementosSeleccionados(gruposDisponibles, gruposAsignados);
+			} );
+			document.getElementById("grp-quitar-selec").addEventListener("click", function (e) {
+				e.preventDefault();
+				moverElementosSeleccionados(gruposAsignados, gruposDisponibles);
+			} );
+			document.getElementById("grp-asignar-todos").addEventListener("click", function (e) {
+				e.preventDefault();
+				moverElementosTodos(gruposDisponibles, gruposAsignados);
+			});
+			document.getElementById("grp-quitar-todos").addEventListener("click", function (e) {
+				e.preventDefault();
+				moverElementosTodos(gruposAsignados, gruposDisponibles);
+			});
+			
+			// Permisos:
+			document.getElementById("perm-asignar-selec").addEventListener("click", function (e) {
+				e.preventDefault();
+				moverElementosSeleccionados(permisosDisponibles, permisosAsignados);
+			} );
+			document.getElementById("perm-quitar-selec").addEventListener("click", function (e) {
+				e.preventDefault();
+				moverElementosSeleccionados(permisosAsignados, permisosDisponibles);
+			} );
+			document.getElementById("perm-asignar-todos").addEventListener("click", function (e) {
+				e.preventDefault();
+				moverElementosTodos(permisosDisponibles, permisosAsignados);
+			});
+			document.getElementById("perm-quitar-todos").addEventListener("click", function (e) {
+				e.preventDefault();
+				moverElementosTodos(permisosAsignados, permisosDisponibles);
+			});
+			
+			filtrarAsignados(gruposAsignados, gruposDisponibles);
+			filtrarAsignados(permisosAsignados, permisosDisponibles);
+		});
+	</script>
+	
+{% endblock JavaScript %}

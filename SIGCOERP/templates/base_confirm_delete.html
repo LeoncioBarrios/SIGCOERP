@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+<!-- Block Title  ---------------------------------------------------------------------------------------->
+{% block title %}
+	{{ accion }}
+{% endblock title %}
+
+<!-- Block Header  ---------------------------------------------------------------------------------------->
+{% block header %}
+{% endblock header %}
+
+<!-- Block Main - ---------------------------------------------------------------------------------------->
+{% block main %}
+	<div class="wrapper">
+		{% block sidebar %}
+			{% include 'sidebar.html' %}
+		{% endblock sidebar %}
+		
+		{% block maincomponent %}
+			<!-- Main Component Start -->
+			<div class="main">
+				{% block buttonsidebartoggle %}
+					{% include 'buttonsidebartoggle.html' %}
+				{% endblock buttonsidebartoggle %}
+				
+				{% block principalcomponent %}
+					<div class="container-fluid">
+						<div class="card border-light mb-3 mt-2">
+							<div class="card-header text-white bg-primary opacity-75 d-flex justify-content-between">
+								<h3 class="mb-0">{{ accion }}</h3>
+								<button type="button" class="btn-close btn-close-white" aria-label="Close"
+									onclick="window.location.href='{% url url_list %}'"></button>
+							</div>
+							
+							<div class="card-body bg-body-secondary">
+								<div class="mb-3">¿ {{ mensaje }} <b>{{ object }}</b> ? </div>
+								<div>
+									<form method="post" class="d-inline">
+										{% csrf_token %}
+										<button type="submit" class="btn btn-danger">Sí, eliminar</button>
+										<a href="{% url url_list %}" class="btn btn-secondary ms-2">Cancelar</a>
+									</form>
+									
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endblock principalcomponent %}
+			</div>
+		{% endblock maincomponent %}
+	</div>
+{% endblock main %}
