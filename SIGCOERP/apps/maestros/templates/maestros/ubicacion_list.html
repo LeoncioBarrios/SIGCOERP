@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
-<!-- Block Title  ---------------------------------------------------------------------------------------->
+<!-- Block Title  ----------------------------------------------------------->
 {% block title %}
 	{{ titulo }}
 {% endblock title %}
 
-<!-- Block Header  ---------------------------------------------------------------------------------------->
+<!-- Block Header  ---------------------------------------------------------->
 {% block header %}
 {% endblock header %}
 
-<!-- Block Main - ---------------------------------------------------------------------------------------->
+<!-- Block Main - ----------------------------------------------------------->
 {% block main %}
 	<div class="wrapper">
 		{% block sidebar %}
@@ -40,22 +40,25 @@
 										<form method="get">
 											<div class="input-group flex-nowrap">
 												<span class="input-group-text">
-													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" 
-														fill="currentColor"
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" 
+														height="16" fill="currentColor"
 														class="bi bi-search" viewbox="0 0 16 16">
 														<path
 															d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
 													</svg>
 												</span>
 												<input type="text" class="form-control" name="buscar" 
-													value="{{ buscar }}" placeholder="Buscar" autocomplete="off">
-												<button class="btn btn-outline-primary">Buscar</button>
+													value="{{ buscar }}" placeholder="Buscar" 
+													autocomplete="off">
+												<button class="btn btn-outline-primary">
+													Buscar
+												</button>
 											</div>
 										</form>
 									</div>
 
 									<div class="col col-2">
-										<a href="{% url 'ubicacion_create' %}" 
+										<a href="{% url url_create %}" 
 												class="btn btn-primary opacity-75">
 											Nuevo
 										</a>
@@ -72,17 +75,21 @@
 											</tr>
 										</thead>
 										<tbody>
-											{% for ubicacion in ubicaciones %}
+											{% for dato in datos %}
 												<tr>
-													<td>{{ ubicacion.nombre_ubicacion }}</td>
-													<td>{{ ubicacion.ubicacion_fisica }}</td>
+													<td>{{ dato.nombre_ubicacion }}</td>
+													<td>{{ dato.ubicacion_fisica }}</td>
 													<td>
 														<!-- Botón Editar -->
-														<a href="{% url 'ubicacion_update' ubicacion.pk %}"
-															class="btn btn-info text-white btn-sm">Editar</a>
+														<a href="{% url url_update dato.pk %}"
+																class="btn btn-info text-white btn-sm">
+															Editar
+														</a>
 														<!-- Botón Eliminar -->
-														<a href="{% url 'ubicacion_delete' ubicacion.pk %}"
-															class="btn btn-danger text-white btn-sm">Eliminar</a>
+														<a href="{% url url_delete dato.pk %}"
+																class="btn btn-danger text-white btn-sm">
+															Eliminar
+														</a>
 													</td>
 												</tr>
 											{% endfor %}

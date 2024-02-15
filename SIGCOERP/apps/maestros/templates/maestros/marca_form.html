@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 
-<!-- Block Title  ---------------------------------------------------------------------------------------->
+<!-- Block Title  ----------------------------------------------------------->
 {% block title %}
 	{{ accion }}
 {% endblock title %}
 
-<!-- Block Header  --------------------------------------------------------------------------------------->
+<!-- Block Header  ---------------------------------------------------------->
 {% block header %}
 {% endblock header %}
 
-<!-- Block Main - ---------------------------------------------------------------------------------------->
+<!-- Block Main - ----------------------------------------------------------->
 {% block main %}
 	<div class="wrapper">
 		{% block sidebar %}
@@ -28,22 +28,29 @@
 					<div class="container-fluid">
 						
 						<div class="card border-light mb-3 mt-2">
-							<div class="card-header text-white bg-primary opacity-75 d-flex justify-content-between">
+							<div class="card-header text-white bg-primary opacity-75 d-flex 
+									justify-content-between">
 								{{ accion }}
-								<button type="button" class="btn-close btn-close-white" aria-label="Close"
-									onclick="window.location.href='{% url url_list %}'"></button>
+								<button type="button" class="btn-close btn-close-white" 
+									aria-label="Close"
+									onclick="window.location.href='{% url url_list %}'">
+								</button>
 							</div>
 							
 							<div class="card-body bg-body-secondary">
 								
+								<!-- Fomulario ******************************************* -->
 								<form method="post" class="needs-validation" novalidate>
 									{% csrf_token %}
 									<!-- Inputs -->
 									<div class="row">
 										
 										<div class="col-md-12">
-											<label for="{{ form.nombre_sub_familia.id_for_label }}"
-												class="form-label text-primary">Marca</label>
+											<label 
+													for="{{ form.nombre_marca.id_for_label }}"
+													class="form-label text-primary">
+												Marca
+											</label>
 											{{ form.nombre_marca }}
 											<div class="invalid-feedback">
 												{{ form.nombre_marca.errors }}
@@ -54,11 +61,16 @@
 									
 									<!-- Botones -->
 									<div class="container mt-3">
-										<button type="submit" class="btn btn-primary">Guardar</button>
-										<a href="{% url url_list %}" class="btn btn-secondary">Cancelar</a>
+										<button type="submit" class="btn btn-primary">
+											Guardar
+										</button>
+										<a href="{% url url_list %}" class="btn btn-secondary">
+											Cancelar
+										</a>
 									</div>
 									
 								</form>
+								<!-- Fomulario Fin *************************************** -->
 								
 							</div>
 						</div>

@@ -8,15 +8,21 @@ from ..forms.clas_producto_forms import ClasProductoForm
 
 
 modelo = ClasProducto
+modelo_string = "clas_producto"
 formulario = ClasProductoForm
-plantilla_form = "clas_producto_form.html"
-url_list = "clas_producto_list"
+
+plantilla_form = f"{modelo_string}_form.html"
+url_home = "inicio"
+url_list = f"{modelo_string}_list"
+url_create = f"{modelo_string}_create"
+url_update = f"{modelo_string}_update"
+url_delete = f"{modelo_string}_delete"
 
 
 # @method_decorator(login_required, name='dispatch')
 class ClasProductoListView(GenericListView):
 	model = modelo
-	context_object_name = 'clas_productos'
+	context_object_name = 'datos'
 	template_name = f"maestros/{url_list}.html"
 	cadena_filtro = "Q(nombre_familia__icontains=text) | \
 		Q(cta_compra__icontains=text) | Q(cta_venta__icontains=text) | \
@@ -24,7 +30,10 @@ class ClasProductoListView(GenericListView):
 		Q(nd_compra__icontains=text) | Q(nd_venta__icontains=text)"
 	extra_context = {
 		"titulo": model._meta.verbose_name_plural,
-		"url_inicio": "inicio"
+		"url_inicio": url_home,
+		"url_create": url_create,
+		"url_update": url_update,
+		"url_delete": url_delete
 	}
 
 # @method_decorator(login_required, name='dispatch')
@@ -35,7 +44,7 @@ class ClasProductoCreateView(GenericCreateView):
 	success_url = reverse_lazy(url_list) # Nombre de la url.
 	extra_context = {
 		#"accion": f"Crear {model.__name__}",
-		"accion": "Crear Familia",
+		"accion": f"Crear {model._meta.verbose_name}",
 		"url_list" : url_list
 	}
 
@@ -48,7 +57,7 @@ class ClasProductoUpdateView(GenericUpdateView):
 	success_url = reverse_lazy(url_list) # Nombre de la url.
 	extra_context = {
 		#"accion": f"Editar {model.__name__}",
-		"accion": "Editar Familia",
+		"accion": f"Editar {model._meta.verbose_name}",
 		"url_list" : url_list
 	}
 
@@ -60,7 +69,7 @@ class ClasProductoDeleteView(GenericDeleteView):
 	success_url = reverse_lazy(url_list) # Nombre de la url.
 	extra_context = {
 		#"accion": f"Eliminar {model.__name__}",
-		"accion": "Eliminar Familia",
+		"accion": f"Eliminar {model._meta.verbose_name}",
 		"url_list" : url_list,
 		"mensaje": "Estás seguro de que deseas eliminar la Familia"
 	}

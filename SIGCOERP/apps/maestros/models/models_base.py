@@ -163,10 +163,10 @@ class Color(ModeloBaseGenerico):
 	id_color = models.AutoField(primary_key=True)
 	nombre_color = models.CharField("Color", max_length=40, null=True,
 									blank=True)
-
+	
 	def __str__(self):
 		return self.nombre_color
-
+	
 	class Meta:
 		db_table = 'sgc_color'
 		verbose_name = ('Color')
@@ -414,10 +414,10 @@ class DocumentoSunat(ModeloBaseGenerico):
 	percepcion = models.BooleanField("Percepción", default=False)
 	retencion = models.BooleanField("Retención", default=False)
 	otros = models.BooleanField("Otros", default=False)
-
+	
 	def __str__(self):
 		return self.nombre_documento_sunat
-
+	
 	class Meta:
 		db_table = 'sgc_documento_sunat'
 		verbose_name = ('Documento SUNAT')
@@ -516,7 +516,7 @@ class Pais(ModeloBaseGenerico):
 	CONTINENTES = (
 		("América", "América"),
 		("Europa", "Europa"),
-		("Asia", "Asía"),
+		("Asia", "Asia"),
 		("África", "África"),
 		("Oceanía", "Oceanía"),
 		("Antártida", "Antártida"),

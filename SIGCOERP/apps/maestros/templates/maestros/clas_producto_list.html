@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 
-<!-- Block Title  ---------------------------------------------------------------------------------------->
+<!-- Block Title  ----------------------------------------------------------->
 {% block title %}
 	{{ titulo }}
 {% endblock title %}
 
-<!-- Block Header  ---------------------------------------------------------------------------------------->
+<!-- Block Header  ---------------------------------------------------------->
 {% block header %}
 {% endblock header %}
 
-<!-- Block Main - ---------------------------------------------------------------------------------------->
+<!-- Block Main - ----------------------------------------------------------->
 {% block main %}
 	<div class="wrapper">
 		{% block sidebar %}
@@ -26,10 +26,13 @@
 				{% block principalcomponent %}
 					<div class="container-fluid">
 						<div class="card border-light mb-3 mt-2">
-							<div class="card-header text-white bg-primary opacity-75 d-flex justify-content-between">
-								<h3>Familias</h3>
-								<button type="button" class="btn-close btn-close-white" aria-label="Close"
-									onclick="window.location.href='{% url url_inicio %}'"></button>
+							<div class="card-header text-white bg-primary opacity-75 d-flex 
+									justify-content-between">
+								<h3>{{ titulo }}</h3>
+								<button type="button" class="btn-close btn-close-white" 
+									aria-label="Close"
+									onclick="window.location.href='{% url url_inicio %}'">
+								</button>
 							</div>
 							<div class="card-body">
 								<div class="row">
@@ -37,26 +40,28 @@
 										<form method="get">
 											<div class="input-group flex-nowrap">
 												<span class="input-group-text">
-													<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+													<svg xmlns="http://www.w3.org/2000/svg" width="16" 
+														height="16" fill="currentColor"
 														class="bi bi-search" viewbox="0 0 16 16">
 														<path
 															d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
 													</svg>
 												</span>
-												<input type="text" class="form-control" name="buscar" value="{{ buscar }}" placeholder="Buscar" autocomplete="off">
-												<button class="btn btn-outline-primary">Buscar</button>
+												<input type="text" class="form-control" name="buscar" 
+													value="{{ buscar }}" placeholder="Buscar" 
+													autocomplete="off">
+												<button class="btn btn-outline-primary">
+													Buscar
+												</button>
 											</div>
 										</form>
 									</div>
 
 									<div class="col col-2">
-										
-										<!-- <a href="{% url 'unidad_create' %}">
-											<button class="btn btn-primary opacity-75">Nuevo</button>
+										<a href="{% url url_create %}" 
+												class="btn btn-primary opacity-75">
+											Nuevo
 										</a>
-										 -->
-										<a href="{% url 'clas_producto_create' %}" class="btn btn-primary opacity-75">Nuevo</a>
-										
 									</div>
 									
 								</div>
@@ -65,10 +70,8 @@
 										<thead class="table-primary">
 											<tr>
 												<th class="col-4">Nombre Familia</th>
-												<!-- <th class="col-1">Cuenta de Compra</th> -->
-												<th class="col-1">Cta. Compra</th>
-												<!-- <th class="col-1">Cuenta de Venta</th> -->
-												<th class="col-1">Cta. Venta</th>
+												<th class="col-1">Cuenta de Compra</th>
+												<th class="col-1">Cuenta de Venta</th>
 												<th class="col-1">NC Compra</th>
 												<th class="col-1">NC Venta</th>
 												<th class="col-1">ND Compra</th>
@@ -77,31 +80,27 @@
 											</tr>
 										</thead>
 										<tbody>
-											{% for clas_producto in clas_productos %}
+											{% for dato in datos %}
 												<tr>
-													<td>{{ clas_producto.nombre_familia }}</td>
-													<td>{{ clas_producto.cta_compra }}</td>
-													<td>{{ clas_producto.cta_venta }}</td>
-													<td>{{ clas_producto.nc_compra }}</td>
-													<td>{{ clas_producto.nc_venta }}</td>
-													<td>{{ clas_producto.nd_compra }}</td>
-													<td>{{ clas_producto.nd_venta }}</td>
+													<td>{{ dato.nombre_familia }}</td>
+													<td>{{ dato.cta_compra }}</td>
+													<td>{{ dato.cta_venta }}</td>
+													<td>{{ dato.nc_compra }}</td>
+													<td>{{ dato.nc_venta }}</td>
+													<td>{{ dato.nd_compra }}</td>
+													<td>{{ dato.nd_venta }}</td>
 													<td>
 														<!-- Botón Editar -->
-														<!-- 
-														<a href="">
-															<button type="button" class="btn btn-info text-white btn-sm">Editar</button>
+														<a href="{% url url_update dato.pk %}" 
+																class="btn btn-info text-white btn-sm">
+															Editar
 														</a>
-														-->
-														<a href="{% url 'clas_producto_update' clas_producto.id_clas_producto %}" class="btn btn-info text-white btn-sm">Editar</a>
 														
 														<!-- Botón Eliminar -->
-														<!-- 
-														<a href="">
-															<button type="button" class="btn btn-danger text-white btn-sm">Eliminar</button>
+														<a href="{% url url_delete dato.pk %}" 
+																class="btn btn-danger text-white btn-sm">
+															Eliminar
 														</a>
-														 -->
-														<a href="{% url 'clas_producto_delete' clas_producto.id_clas_producto %}" class="btn btn-danger text-white btn-sm">Eliminar</a>
 													</td>
 												</tr>
 											{% endfor %}

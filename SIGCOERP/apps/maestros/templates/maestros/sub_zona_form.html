@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+<!-- Block Title  ----------------------------------------------------------->
+{% block title %}
+	{{ accion }}
+{% endblock title %}
+
+<!-- Block Header  ---------------------------------------------------------->
+{% block header %}
+{% endblock header %}
+
+<!-- Block Main - ----------------------------------------------------------->
+{% block main %}
+	<div class="wrapper">
+		{% block sidebar %}
+			{% include 'sidebar.html' %}
+		{% endblock sidebar %}
+		
+		{% block maincomponent %}
+			<!-- Main Component Start -->
+			<div class="main">
+				{% block buttonsidebartoggle %}
+					{% include 'buttonsidebartoggle.html' %}
+				{% endblock buttonsidebartoggle %}
+				
+				{% block principalcomponent %}
+					<div class="container-fluid">
+						
+						<div class="card border-light mb-3 mt-2">
+							<div class="card-header text-white bg-primary opacity-75 d-flex 
+									justify-content-between">
+								{{ accion }}
+								<button type="button" class="btn-close btn-close-white" 
+									aria-label="Close"
+									onclick="window.location.href='{% url url_list %}'">
+								</button>
+							</div>
+							
+							<div class="card-body bg-body-secondary">
+								
+								<!-- Fomulario ******************************************* -->
+								<form method="post" class="needs-validation" novalidate>
+									{% csrf_token %}
+									<!-- Inputs -->
+									<div class="row">
+											
+										<div class="col-md-6">
+											<label 
+													for="{{ form.id_zona.id_for_label }}"
+													class="form-label text-primary">
+												Zona
+											</label>
+											{{ form.id_zona }}
+										</div>
+										
+										<div class="col-md-6">
+											<label 
+													for="{{ form.nombre_sub_zona.id_for_label }}"
+													class="form-label text-primary">
+												Sub Zona
+											</label>
+											{{ form.nombre_sub_zona }}
+											<div class="invalid-feedback">
+												{{ form.nombre_sub_zona.errors }}
+											</div>
+										</div>
+										
+									</div>
+										
+									
+									<div class="row mt-3">
+										
+										<div class="col-md-12">
+											<label 
+													for="{{ form.descripcion_sub_zona.id_for_label }}"
+													class="form-label text-primary">
+												Descripción Zona
+											</label>
+											{{ form.descripcion_sub_zona }}
+											<div class="invalid-feedback">
+												{{ form.descripcion_sub_zona.errors }}
+											</div>
+										</div>
+										
+									</div>
+										
+									<!-- Botones -->
+									<div class="container mt-3">
+										<button type="submit" class="btn btn-primary">
+											Guardar
+										</button>
+										<a href="{% url url_list %}" class="btn btn-secondary">
+											Cancelar
+										</a>
+									</div>
+									
+								</form>
+								<!-- Fomulario Fin *************************************** -->
+								
+							</div>
+						</div>
+					</div>
+				
+				{% endblock principalcomponent %}
+			</div>
+		{% endblock maincomponent %}
+	</div>
+{% endblock main %}
+
+<!-- Block Fotter ---------------------------------------------------------------------------------------->
+{% block footer %}
+{% endblock footer %}

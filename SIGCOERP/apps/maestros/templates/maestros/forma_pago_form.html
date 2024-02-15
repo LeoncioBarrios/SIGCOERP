@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+<!-- Block Title  ----------------------------------------------------------->
+{% block title %}
+	{{ accion }}
+{% endblock title %}
+
+<!-- Block Header  ---------------------------------------------------------->
+{% block header %}
+{% endblock header %}
+
+<!-- Block Main - ----------------------------------------------------------->
+{% block main %}
+	<div class="wrapper">
+		{% block sidebar %}
+			{% include 'sidebar.html' %}
+		{% endblock sidebar %}
+		
+		{% block maincomponent %}
+			<!-- Main Component Start -->
+			<div class="main">
+				{% block buttonsidebartoggle %}
+					{% include 'buttonsidebartoggle.html' %}
+				{% endblock buttonsidebartoggle %}
+				
+				{% block principalcomponent %}
+					<div class="container-fluid">
+						
+						<div class="card border-light mb-3 mt-2">
+							<div class="card-header text-white bg-primary opacity-75 d-flex 
+									justify-content-between">
+								{{ accion }}
+								<button type="button" class="btn-close btn-close-white" 
+									aria-label="Close"
+									onclick="window.location.href='{% url url_list %}'">
+								</button>
+							</div>
+							
+							<div class="card-body bg-body-secondary">
+								
+								<!-- Fomulario ******************************************* -->
+								<form method="post" class="needs-validation" novalidate>
+									{% csrf_token %}
+									<!-- Inputs -->
+									
+									<div class="row">
+										<div class="col-md-4">
+											<label 
+													for="{{ form.nombre_forma_pago.id_for_label }}"
+													class="form-label text-primary">
+												Forma de Pago
+											</label>
+											{{ form.nombre_forma_pago }}
+											<div class="invalid-feedback">
+												{{ form.nombre_forma_pago.errors }}
+											</div>
+										</div>
+									</div>
+										
+									<div class="row mt-3">
+										<div class="col-md-2">
+											<label 
+													for="{{ form.codigo_forma_pago.id_for_label }}"
+													class="form-label text-primary">
+												Código Forma de Pago
+											</label>
+											{{ form.codigo_forma_pago }}
+											<div class="invalid-feedback">
+												{{ form.codigo_forma_pago.errors }}
+											</div>
+										</div>
+									</div>
+									
+									<div class="row mt-3">
+										<div class="col-md-3">
+											{{ form.compra }}
+											<label 
+													for="{{ form.compra.id_for_label }}"
+													class="form-label text-primary">
+												Compra
+											</label>
+											<div class="invalid-feedback">
+												{{ form.compra.errors }}
+											</div>
+										</div>
+									</div>
+									
+									<div class="row mt-3">
+										<div class="col-md-3">
+											{{ form.venta }}
+											<label 
+													for="{{ form.venta.id_for_label }}"
+													class="form-label text-primary">
+												Venta
+											</label>
+											<div class="invalid-feedback">
+												{{ form.venta.errors }}
+											</div>
+										</div>
+									</div>
+									
+									<div class="row mt-3">
+										<div class="col-md-3">
+											{{ form.pventa }}
+											<label 
+													for="{{ form.pventa.id_for_label }}"
+													class="form-label text-primary">
+												PVenta
+											</label>
+											<div class="invalid-feedback">
+												{{ form.pventa.errors }}
+											</div>
+										</div>
+									</div>
+									
+									<div class="row mt-3">
+										<div class="col-md-3">
+											{{ form.otros }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												Otros
+											</label>
+											<div class="invalid-feedback">
+												{{ form.otros.errors }}
+											</div>
+										</div>
+									</div>
+									
+									<!-- Botones -->
+									<div class="container mt-3">
+										<button type="submit" class="btn btn-primary">
+											Guardar
+										</button>
+										<a href="{% url url_list %}" class="btn btn-secondary">
+											Cancelar
+										</a>
+									</div>
+									
+								</form>
+								<!-- Fomulario Fin *************************************** -->
+								
+							</div>
+						</div>
+					</div>
+				
+				{% endblock principalcomponent %}
+			</div>
+		{% endblock maincomponent %}
+	</div>
+{% endblock main %}
+
+<!-- Block Fotter ---------------------------------------------------------------------------------------->
+{% block footer %}
+{% endblock footer %}

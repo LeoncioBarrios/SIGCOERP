@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+<!-- Block Title  ----------------------------------------------------------->
+{% block title %}
+	{{ accion }}
+{% endblock title %}
+
+<!-- Block Header  ---------------------------------------------------------->
+{% block header %}
+{% endblock header %}
+
+<!-- Block Main - ----------------------------------------------------------->
+{% block main %}
+	<div class="wrapper">
+		{% block sidebar %}
+			{% include 'sidebar.html' %}
+		{% endblock sidebar %}
+		
+		{% block maincomponent %}
+			<!-- Main Component Start -->
+			<div class="main">
+				{% block buttonsidebartoggle %}
+					{% include 'buttonsidebartoggle.html' %}
+				{% endblock buttonsidebartoggle %}
+				
+				{% block principalcomponent %}
+					<div class="container-fluid">
+						
+						<div class="card border-light mb-3 mt-2">
+							<div class="card-header text-white bg-primary opacity-75 d-flex 
+									justify-content-between">
+								{{ accion }}
+								<button type="button" class="btn-close btn-close-white" 
+									aria-label="Close"
+									onclick="window.location.href='{% url url_list %}'">
+								</button>
+							</div>
+							
+							<div class="card-body bg-body-secondary">
+								
+								<!-- Fomulario ******************************************* -->
+								<form method="post" class="needs-validation" novalidate>
+									{% csrf_token %}
+									<!-- Inputs -->
+									<div class="row">
+										
+										<div class="col-md-10">
+											<label 
+													for="{{ form.nombre_documento_sunat.id_for_label }}"
+													class="form-label text-primary">
+													Documento SUNAT
+											</label>
+											{{ form.nombre_documento_sunat }}
+											<div class="invalid-feedback">
+												{{ form.nombre_documento_sunat.errors }}
+											</div>
+										</div>
+										
+										<div class="col-md-2">
+											<label 
+													for="{{ form.abreviado.id_for_label }}"
+													class="form-label text-primary">
+													Abreviado
+											</label>
+											{{ form.abreviado }}
+											<div class="invalid-feedback">
+												{{ form.abreviado.errors }}
+											</div>
+										</div>
+										
+									</div>
+									
+									<div class="row mt-3">
+										
+										<div class="col-md-3">
+											{{ form.compra }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												Compra
+											</label>
+											<div class="invalid-feedback">
+												{{ form.compra.errors }}
+											</div>
+										</div>
+										
+										<div class="col-md-3">
+											{{ form.venta }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												Venta
+											</label>
+											<div class="invalid-feedback">
+												{{ form.venta.errors }}
+											</div>
+										</div>
+										
+									</div>
+									
+									<div class="row">
+										
+										<div class="col-md-3">
+											{{ form.gasto }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												Gasto
+											</label>
+											<div class="invalid-feedback">
+												{{ form.gasto.errors }}
+											</div>
+										</div>
+										
+										<div class="col-md-3">
+											{{ form.honorario }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												Honorario
+											</label>
+											<div class="invalid-feedback">
+												{{ form.honorario.errors }}
+											</div>
+										</div>
+										
+									</div>
+									
+									<div class="row">
+										
+										<div class="col-md-3">
+											{{ form.guia }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												Guía
+											</label>
+											<div class="invalid-feedback">
+												{{ form.guia.errors }}
+											</div>
+										</div>
+										
+										<div class="col-md-3">
+											{{ form.nc }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												NC
+											</label>
+											<div class="invalid-feedback">
+												{{ form.nc.errors }}
+											</div>
+										</div>
+										
+									</div>
+									
+									<div class="row">
+										
+										<div class="col-md-3">
+											{{ form.nd }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												ND
+											</label>
+											<div class="invalid-feedback">
+												{{ form.nd.errors }}
+											</div>
+										</div>
+										
+										<div class="col-md-3">
+											{{ form.percepcion }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												Percepción
+											</label>
+											<div class="invalid-feedback">
+												{{ form.percepcion.errors }}
+											</div>
+										</div>
+										
+									</div>
+									
+									<div class="row">
+										
+										<div class="col-md-3">
+											{{ form.retencion }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												Retención
+											</label>
+											<div class="invalid-feedback">
+												{{ form.retencion.errors }}
+											</div>
+										</div>
+										
+										<div class="col-md-3">
+											{{ form.otros }}
+											<label 
+													for="{{ form.otros.id_for_label }}"
+													class="form-label text-primary">
+												Otros
+											</label>
+											<div class="invalid-feedback">
+												{{ form.otros.errors }}
+											</div>
+										</div>
+										
+									</div>
+									
+									<!-- Botones -->
+									<div class="container mt-3">
+										<button type="submit" class="btn btn-primary">
+											Guardar
+										</button>
+										<a href="{% url url_list %}" class="btn btn-secondary">
+											Cancelar
+										</a>
+									</div>
+									
+								</form>
+								<!-- Fomulario Fin *************************************** -->
+								
+							</div>
+						</div>
+					</div>
+				
+				{% endblock principalcomponent %}
+			</div>
+		{% endblock maincomponent %}
+	</div>
+{% endblock main %}
+
+<!-- Block Fotter ---------------------------------------------------------------------------------------->
+{% block footer %}
+{% endblock footer %}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+
+<!-- Block Title  ----------------------------------------------------------->
+{% block title %}
+	{{ accion }}
+{% endblock title %}
+
+<!-- Block Header  ---------------------------------------------------------->
+{% block header %}
+{% endblock header %}
+
+<!-- Block Main - ----------------------------------------------------------->
+{% block main %}
+	<div class="wrapper">
+		{% block sidebar %}
+			{% include 'sidebar.html' %}
+		{% endblock sidebar %}
+		
+		{% block maincomponent %}
+			<!-- Main Component Start -->
+			<div class="main">
+				{% block buttonsidebartoggle %}
+					{% include 'buttonsidebartoggle.html' %}
+				{% endblock buttonsidebartoggle %}
+				
+				{% block principalcomponent %}
+					<div class="container-fluid">
+						
+						<div class="card border-light mb-3 mt-2">
+							<div class="card-header text-white bg-primary opacity-75 d-flex 
+									justify-content-between">
+								{{ accion }}
+								<button type="button" class="btn-close btn-close-white" 
+									aria-label="Close"
+									onclick="window.location.href='{% url url_list %}'">
+								</button>
+							</div>
+							
+							<div class="card-body bg-body-secondary">
+								
+								<!-- Fomulario ******************************************* -->
+								<form method="post" class="needs-validation" novalidate>
+									{% csrf_token %}
+									<!-- Inputs -->
+									
+									<div class="row">
+										<div class="col-md-2">
+											<label 
+													for="{{ form.ubigeo.id_for_label }}"
+													class="form-label text-primary">
+												Ubigeo
+											</label>
+											{{ form.ubigeo }}
+											<div class="invalid-feedback">
+												{{ form.ubigeo.errors }}
+											</div>
+										</div>
+									</div>
+										
+									<div class="row mt-3">
+										<div class="col-md-5">
+											<label 
+													for="{{ form.departamento.id_for_label }}"
+													class="form-label text-primary">
+												Departamento
+											</label>
+											{{ form.departamento }}
+											<div class="invalid-feedback">
+												{{ form.departamento.errors }}
+											</div>
+										</div>
+									</div>
+										
+									<div class="row mt-3">
+										<div class="col-md-5">
+											<label 
+													for="{{ form.provincia.id_for_label }}"
+													class="form-label text-primary">
+												Provincia
+											</label>
+											{{ form.provincia }}
+											<div class="invalid-feedback">
+												{{ form.provincia.errors }}
+											</div>
+										</div>
+									</div>
+										
+									<div class="row mt-3">
+										<div class="col-md-5">
+											<label 
+													for="{{ form.distrito.id_for_label }}"
+													class="form-label text-primary">
+												Distrito
+											</label>
+											{{ form.distrito }}
+											<div class="invalid-feedback">
+												{{ form.distrito.errors }}
+											</div>
+										</div>
+									</div>
+										
+									<div class="row mt-3">
+										<div class="col-md-3">
+											{{ form.tipo_ubigeo }}
+											<label 
+													for="{{ form.tipo_ubigeo.id_for_label }}"
+													class="form-label text-primary">
+												Tipo de Ubigeo
+											</label>
+											<div class="invalid-feedback">
+												{{ form.tipo_ubigeo.errors }}
+											</div>
+										</div>
+									</div>
+									
+									<!-- Botones -->
+									<div class="container mt-3">
+										<button type="submit" class="btn btn-primary">
+											Guardar
+										</button>
+										<a href="{% url url_list %}" class="btn btn-secondary">
+											Cancelar
+										</a>
+									</div>
+									
+								</form>
+								<!-- Fomulario Fin *************************************** -->
+								
+							</div>
+						</div>
+					</div>
+				
+				{% endblock principalcomponent %}
+			</div>
+		{% endblock maincomponent %}
+	</div>
+{% endblock main %}
+
+<!-- Block Fotter ---------------------------------------------------------------------------------------->
+{% block footer %}
+{% endblock footer %}
